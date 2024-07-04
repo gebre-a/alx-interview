@@ -1,3 +1,6 @@
+Curriculum
+Short Specializations
+Average: 84.08%
 0x05. N Queens
 Algorithm
 Python
@@ -56,3 +59,4 @@ One solution per line
 Format: see example
 You don’t have to print the solutions in a specific order
 You are only allowed to import the sys module
+Read: Queen, Backtracking
