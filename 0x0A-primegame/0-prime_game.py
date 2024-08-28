@@ -1,29 +1,44 @@
 #!/usr/bin/python3
 """
-Defines a Prime game
+Module: Game of choosing Prime numbers
 """
+
+
+def primeNumbers(n):
+    """Return list of prime numbers between 1 and n inclusive
+       Args:
+        n (int): upper boundary of range. lower boundary is always 1
+    """
+    primeNos = []
+    filtered = [True] * (n + 1)
+    for prime in range(2, n + 1):
+        if (filtered[prime]):
+            primeNos.append(prime)
+            for i in range(prime, n + 1, prime):
+                filtered[i] = False
+    return primeNos
 
 
 def isWinner(x, nums):
     """
-    Evaluates the winner of a prime game session within x rounds of play
+    Determines winner of Prime Game
+    Args:
+        x (int): no. of rounds of game
+        nums (int): upper limit of range for each round
+    Return:
+        Name of winner (Maria or Ben) or None if winner cannot be found
     """
-    if x < 1 or not nums:
+    if x is None or nums is None or x == 0 or nums == []:
         return None
-    mariasWins, bensWins = 0, 0
-    n = max(nums)
-    primes = [True for _ in range(1, n + 1, 1)]
-    primes[0] = False
-    for i, isPrime in enumerate(primes, 1):
-        if i == 1 or not isPrime:
-            continue
-        for y in range(i + i, n + 1, i):
-            primes[y - 1] = False
-    for _, n in zip(range(x), nums):
-        primesCount = len(list(filter(lambda x: x, primes[0: n])))
-        bensWins += primesCount % 2 == 0
-        mariasWins += primesCount % 2 == 1
-    if mariasWins == bensWins:
-        return None
-    return 'Maria' if mariasWins > bensWins else 'Ben'
-
+    Maria = Ben = 0
+    for i in range(x):
+        primeNos = primeNumbers(nums[i])
+        if len(primeNos) % 2 == 0:
+            Ben += 1
+        else:
+            Maria += 1
+    if Maria > Ben:
+        return 'Maria'
+    elif Ben > Maria:
+        return 'Ben'
+    return None
